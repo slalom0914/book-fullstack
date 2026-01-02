@@ -36,12 +36,12 @@ http://localhost:8000/dept/deptDelete
 
 @Log4j2
 @RestController
-@RequestMapping("/dept/*")
+//@RequestMapping("/dept/*")
 public class DeptController {
 	@Autowired
 	private DeptService deptService;// 변수 이름은 줄여쓰지 않음.
 
-	@GetMapping("deptList")
+	@GetMapping("dept/deptList")
 	public String deptList(DeptVO dvo) {
 		log.info("deptList호출");
 		log.info("dname : " + dvo.getDname());

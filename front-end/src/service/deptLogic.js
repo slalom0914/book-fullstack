@@ -37,7 +37,7 @@ export const deptListDB = async (data) => {
   try {
     const res = await axios({
       method: 'get',
-      url: process.env.REACT_APP_SPRING_IP+'deptList',
+      url: process.env.REACT_APP_SPRING_IP+'dept/deptList',
       params: data
     })
     console.log(res.data)
