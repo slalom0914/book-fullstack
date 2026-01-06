@@ -98,7 +98,7 @@ const DeptList = () => {
           <button className="btn btn-warning" onClick={jsonDeptList}>
             전체조회
           </button>&nbsp; 
-          <button className="btn btn-success" onClick={()=> console.log('등록 모달 호출')}>
+          <button className="btn btn-success" onClick={handleShow}>
             부서등록
           </button> 
         </div>
