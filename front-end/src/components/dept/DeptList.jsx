@@ -16,6 +16,8 @@ const DeptList = () => {
   const [keyword,setKeyword] = useState('')
   // deptno, dname, loc
   const [searchType, setSearchType] = useState('')
+  //등록이 성공하면 상태값을 0에서 1로 변경해줌 - 새로 렌더링이 일어난다.
+  //부서목록을 가져오는 useEffect에 의존성 배열에 state추가해줌.
   const [state, setState] = useState(0)
   const getDeptList = async() => {
     const dept = {
@@ -32,6 +34,8 @@ const DeptList = () => {
   }
   
   useEffect(() => {
+    //state가 변하면 getDeptList() 다시 호출됨.
+    //0(초기값)-> 1 -> 2 -> 3
     getDeptList()
   },[keyword, searchType, state])//의존성배열이 빈통이면 최초 한 번만 호출된다.
   const jsonDeptList = () => {
@@ -59,11 +63,13 @@ const DeptList = () => {
       dname: dname,
       loc: loc
     }
+    //모달 자동으로 닫기 
     handleClose()
     const res = await deptInsertDB(dept)
     if(res !== 1) console.log('부서등록에 실패하였습니다.')
     else {
       navigate('/dept')
+      //useState는 이전 상태값을 기억하고 있다.
       setState((prev)=> prev + 1)
       //window.location.reload(); 비추:SPA장점 없음, 더 중요한 건 상태값 다 날아감.
     }

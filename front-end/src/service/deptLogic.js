@@ -10,6 +10,7 @@ const api = axios.create({
 // 서블릿에게 부서 등록 요청하기
 export const deptInsertDB = async (data) => {
   const res = await api.post('dept/deptInsert', data)
+  console.log(res)
   return res.data 
 }
 /*
