@@ -34,11 +34,9 @@ dept.xml문서의 컬럼명 자리에 별칭을 소문자로 붙여 주면 키�
 		dname  as "dname",
 		loc    as "loc"
 		FROM dept
-
 		<where>
 			<if test="keyword != null and keyword != '' and searchType != null and searchType != ''">
 				<choose>
-
 					<!-- 1) 부서번호로 검색 (숫자 컬럼) -->
 					<when test="searchType == 'deptno'">
 						deptno = #{keyword}

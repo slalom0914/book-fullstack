@@ -51,10 +51,11 @@ export const deptUpdateDB = async (data) => {
 }//end of deptInsertDB
 */
 
-// 부서목록 조회
+// 부서목록 조회 - 타입, 데이터셋 구조, json, [], {}, [{}]
 export const deptListDB = async (data) => {
-  console.log(data)
+  console.log(data) // deptno, dname, loc, keyword, searchType
   const res = await api.get('dept/deptList',{params: data})
+  console.log(res)
   return res.data 
 }//end of deptListDB
 /*

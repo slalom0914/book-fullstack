@@ -10,12 +10,18 @@ const DeptList = () => {
   const [ deptno, setDeptno ] = useState(0)
   const [ dname, setDname] = useState('')
   const [ loc, setLoc] = useState('')
+  // 사용자 입력한 검색어 담기
+  const [keyword,setKeyword] = useState('')
+  // deptno, dname, loc
+  const [searchType, setSearchType] = useState('')
   useEffect(() => {
     const getDeptList = async() => {
       const dept = {
         deptno: 0,
         dname: null,
-        loc: null
+        loc: null,
+        searchType: searchType,
+        keyword: keyword,
       }
       const res = await deptListDB(dept)
       console.log(res)
@@ -27,9 +33,10 @@ const DeptList = () => {
   const jsonDeptList = () => {
 
   }
-
+  // 검색 버튼을 클릭했을 때 호출되는 함수
+  // 만일 키워드 입력 후 엔터 했을 때 호출하려면 form태그로 묶어서 submit처리함
   const reactSearch = () => {
-    
+    console.log('reactSearch  호출')
   }
   //모달 관련 상태
   const [ show, setShow] = useState(false)
