@@ -31,7 +31,7 @@ const DeptList = () => {
   
   useEffect(() => {
     getDeptList()
-  },[])//의존성배열이 빈통이면 최초 한 번만 호출된다.
+  },[keyword, searchType])//의존성배열이 빈통이면 최초 한 번만 호출된다.
   const jsonDeptList = () => {
 
   }
@@ -62,6 +62,11 @@ const DeptList = () => {
 
   const handleLoc = (value) => {
     setLoc(value)
+  }
+  // 조건 검색 후에 keyword와 searchType에 대한 초기화
+  const handleReset = () => {
+    setKeyword('')
+    setSearchType('')
   }
 
   return (
@@ -94,7 +99,9 @@ const DeptList = () => {
 		    <div className="col-3">
 			    <button className='btn btn-danger' id="btn_search" onClick={reactSearch}>검색</button>
           &nbsp;
-          <button className='btn btn-dark'>초기화</button>
+          <button className='btn btn-dark' onClick={handleReset} >
+            초기화
+          </button>
 		    </div>
 	     </div> 
       <div className={styles.deptlist}>
