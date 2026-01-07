@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
-import { deptListDB } from '../../service/deptLogic'
+import { deptInsertDB, deptListDB } from '../../service/deptLogic'
 import styles from './dept.module.css'
 import DeptRow from './DeptRow'
 import { Button, Modal } from 'react-bootstrap'
 import { MyInput, MyLabel, MyLabelAb } from '../style/FormStyle'
+import { useNavigate } from 'react-router'
 
 const DeptList = () => {
+  const navigate = useNavigate()
   const [deptList, setDeptList] = useState([])
   const [ deptno, setDeptno ] = useState(0)
   const [ dname, setDname] = useState('')
@@ -14,7 +16,7 @@ const DeptList = () => {
   const [keyword,setKeyword] = useState('')
   // deptno, dname, loc
   const [searchType, setSearchType] = useState('')
-  
+  const [state, setState] = useState(0)
   const getDeptList = async() => {
     const dept = {
       deptno: 0,
@@ -31,7 +33,7 @@ const DeptList = () => {
   
   useEffect(() => {
     getDeptList()
-  },[keyword, searchType])//의존성배열이 빈통이면 최초 한 번만 호출된다.
+  },[keyword, searchType, state])//의존성배열이 빈통이면 최초 한 번만 호출된다.
   const jsonDeptList = () => {
 
   }
@@ -46,12 +48,27 @@ const DeptList = () => {
   const handleClose = () => setShow(false)
   const handleShow = () => setShow(true)
 
+
   // 사용자가 입력한 부서 정보를 객체 리터럴로 담아서 서버에 전송한다.
   // json -> 객체
   // 객체 -> json
   const deptInsert = async () => {
-
-  }
+    //사용자 입력한 값을 useState로 처리하고 여기서 사용함
+    const dept = {
+      deptno: deptno,
+      dname: dname,
+      loc: loc
+    }
+    handleClose()
+    const res = await deptInsertDB(dept)
+    if(res !== 1) console.log('부서등록에 실패하였습니다.')
+    else {
+      navigate('/dept')
+      setState((prev)=> prev + 1)
+      //window.location.reload(); 비추:SPA장점 없음, 더 중요한 건 상태값 다 날아감.
+    }
+  }//end of depInsert
+  
   const handleDeptno = (value) => {
     setDeptno(value)
   }
