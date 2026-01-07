@@ -14,20 +14,22 @@ const DeptList = () => {
   const [keyword,setKeyword] = useState('')
   // deptno, dname, loc
   const [searchType, setSearchType] = useState('')
-  useEffect(() => {
-    const getDeptList = async() => {
-      const dept = {
-        deptno: 0,
-        dname: null,
-        loc: null,
-        searchType: searchType,
-        keyword: keyword,
-      }
-      const res = await deptListDB(dept)
-      console.log(res)
-      setDeptList(res)
-      //console.log(res.data)
+  
+  const getDeptList = async() => {
+    const dept = {
+      deptno: 0,
+      dname: null,
+      loc: null,
+      searchType: searchType,
+      keyword: keyword,
     }
+    const res = await deptListDB(dept)
+    console.log(res)
+    setDeptList(res)
+    //console.log(res.data)
+  }
+  
+  useEffect(() => {
     getDeptList()
   },[])//의존성배열이 빈통이면 최초 한 번만 호출된다.
   const jsonDeptList = () => {
@@ -37,6 +39,7 @@ const DeptList = () => {
   // 만일 키워드 입력 후 엔터 했을 때 호출하려면 form태그로 묶어서 submit처리함
   const reactSearch = () => {
     console.log('reactSearch  호출')
+    getDeptList()
   }
   //모달 관련 상태
   const [ show, setShow] = useState(false)
@@ -70,7 +73,11 @@ const DeptList = () => {
 	    </div>      
       <div className="row">
         <div className="col-3">
-          <select id="gubun" className="form-select" aria-label="분류선택">
+          <select id="gubun" 
+            onChange={(event)=>{setSearchType(event.target.value)}}//deptno, dname, loc
+            className="form-select" aria-label="분류선택"
+            value={searchType}
+          >
             <option defaultValue>분류선택</option>
             <option value="deptno">부서번호</option>
             <option value="dname">부서명</option>
@@ -79,10 +86,15 @@ const DeptList = () => {
         </div>
 		    <div className="col-6">
 			    <input type="text" id="keyword" className="form-control" placeholder="검색어를 입력하세요" 
-                 aria-label="검색어를 입력하세요" aria-describedby="btn_search" />
+            onChange={(event)=>{setKeyword(event.target.value)}}
+            aria-label="검색어를 입력하세요" aria-describedby="btn_search" 
+            value={keyword}
+          />
 		    </div>
 		    <div className="col-3">
 			    <button className='btn btn-danger' id="btn_search" onClick={reactSearch}>검색</button>
+          &nbsp;
+          <button className='btn btn-dark'>초기화</button>
 		    </div>
 	     </div> 
       <div className={styles.deptlist}>
