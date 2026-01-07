@@ -17,3 +17,13 @@ spring:
       pool-name: oraPool
   application:
     name: back-end
+springdoc:
+  swagger-ui:
+    path: /docs        # Swagger UI 접속 경로 변경 (예: /docs)
+    operationsSorter: method
+    tagsSorter: alpha
+  # api-docs.path는 기본값 /v3/api-docs를 사용
+  # http://localhost:8000/swagger-ui/index.html
+  # http://localhost:8000/v3/api-docs
+  api-docs:
+    path: /v3/api-docs
